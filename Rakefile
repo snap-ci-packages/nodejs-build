@@ -25,6 +25,7 @@ end
     description_string = %Q{Node.js is a server-side JavaScript environment that uses an asynchronous event-driven model. This allows Node.js to get excellent performance based on the architectures of many Internet applications.}
 
     jailed_root = File.expand_path('../jailed-root', __FILE__)
+    prefix = File.join('/opt/local/nodejs', version)
 
     CLEAN.include("downloads")
     CLEAN.include("jailed-root")
@@ -52,7 +53,7 @@ end
       cd "src" do
         sh "tar -zxf ../downloads/node-v#{version}.tar.gz"
         cd "node-v#{version}" do
-          sh "./configure --prefix=/opt/local/nodejs/#{version} > #{File.dirname(__FILE__)}/log/configure.#{version}.log 2>&1"
+          sh "./configure --prefix=#{prefix} > #{File.dirname(__FILE__)}/log/configure.#{version}.log 2>&1"
         end
       end
     end
@@ -77,7 +78,7 @@ end
     task :fpm do
       cd 'pkg' do
         sh(%Q{
-             bundle exec fpm -s dir -t #{distro} --name nodejs-#{version} -a x86_64 --version "#{version}" -C #{jailed_root} --verbose #{fpm_opts} --maintainer snap-ci@thoughtworks.com --vendor snap-ci@thoughtworks.com --url http://snap-ci.com --description "#{description_string}" --iteration #{release} --license 'https://raw.github.com/joyent/node/v#{version}/LICENSE' .
+             bundle exec fpm -s dir -t #{distro} --name nodejs-#{version} -a x86_64 --version "#{version}" -C #{jailed_root} --directories #{prefix} --verbose #{fpm_opts} --maintainer snap-ci@thoughtworks.com --vendor snap-ci@thoughtworks.com --url http://snap-ci.com --description "#{description_string}" --iteration #{release} --license 'https://raw.github.com/joyent/node/v#{version}/LICENSE' .
         })
       end
     end
