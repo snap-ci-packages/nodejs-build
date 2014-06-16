@@ -20,7 +20,7 @@ end
 
 %w(0.8.26 0.10.28 0.11.13).each do |version|
   namespace version do
-    release = ENV['GO_PIPELINE_COUNTER'] || ENV['RELEASE'] || 1
+    release = Time.now.utc.strftime('%Y%m%d%H%M%S')
 
     description_string = %Q{Node.js is a server-side JavaScript environment that uses an asynchronous event-driven model. This allows Node.js to get excellent performance based on the architectures of many Internet applications.}
 
