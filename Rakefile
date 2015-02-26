@@ -18,7 +18,7 @@ unless distro
   $stderr.puts "Don't know what distro I'm running on -- not sure if I can build!"
 end
 
-%w(0.8.26 0.10.28 0.10.29 0.10.30 0.10.31 0.10.32 0.10.33 0.11.13).each do |version|
+%w(0.8.26 0.8.28 0.10.28 0.10.29 0.10.30 0.10.31 0.10.32 0.10.33 0.10.36 0.11.13 0.11.16 0.12.0).each do |version|
   namespace version do
     release = Time.now.utc.strftime('%Y%m%d%H%M%S')
 
